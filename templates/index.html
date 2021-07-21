@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}
+  Home - 
+{% endblock title %}
+{% block body %}
+<h1> Add Todo</h1>
+<form action="/" method="POST">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Title</label>
+    <input type="text" name = 'title' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Description</label>
+    <input type="text" name = 'desc' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="container my-3">
+<h1>Your Todos</h1>
+  {% if todos|length ==0 %}
+  <div class="alert alert-info" role="alert">No Todos!! Start adding your todo!!</div>
+  {% else %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Sr. No.</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Date Created</th>
+      <th scope="col">Update/Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for todo in todos %}
+    <tr>
+      <td>{{ loop.index }}</th>
+      <td>{{ todo.title }}</td>
+      <td>{{ todo.desc }}</td>
+      <td>{{ todo.date_created }}</td>
+      <td>
+        <a type="button" href="/update/{{ todo.sr_no }}" class="btn btn-outline-warning btn-sm">Update</a>
+        <a type="button" href="/delete/{{ todo.sr_no }}" class="btn btn-outline-danger btn-sm">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endif %}
+{% endblock body %}
